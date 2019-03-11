@@ -1,0 +1,20 @@
+html, body {
+    height: 100%;
+}
+body {
+    background: url("../images/darkCoins.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-color: black;
+}
+
+.container {
+    background: url("../images/shipDeck.jpg");
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: rgb(231, 212, 187);
+    background-blend-mode: multiply;
+    height: 100%;
+    display: block;
+}
