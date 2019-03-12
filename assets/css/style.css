@@ -5,7 +5,8 @@ body {
     background: url("../images/darkCoins.jpg");
     background-size: cover;
     background-position: center center;
-    background-color: black;
+    background-color: rgb(223, 211, 178);
+    background-blend-mode: color-burn;
 }
 
 .container {
@@ -17,4 +18,22 @@ body {
     background-blend-mode: multiply;
     height: 100%;
     display: block;
+}
+
+.textBackground {
+    font-size: 80px;
+    margin-left: 100px;
+    margin-right: 100px;
+}
+
+.textShadow {
+    text-shadow: 5px 3px rgba(95, 88, 57, 0.829);
+}
+
+.font {
+    font-family: 'Tangerine', cursive;
+}
+
+.fontSize {
+    font-size: 45px;
 }

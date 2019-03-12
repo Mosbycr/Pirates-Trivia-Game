@@ -6,30 +6,52 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Tangerine" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+    <script src="assets/javascript/app.js"></script>
     <title>Pirates Trivia Game </title>
 </head>
 <body>
     <div class="container rounded">
-        <div class="row text-center py-5">
+        <div class="row text-center text-white py-5">
             <div class="col-md-12">
-                <h1>What do you know about Pirates? Trivia Game</h1>
+                <h1 class="textBackground textShadow font py-3"><b>What do ye know about Pirates? <br>Trivia Game</b></h1>
             </div>
         </div>
 
-        <div class="row text-center py-3">
+        <div class="row text-center text-white pt-3 pb-2">
             <div class="col-md-12">
-                <h3>Time Remaining: <span id="questionCountdown"></span></h3>
+                <h3 class="textShadow font fontSize"><b>Time Remaining: <span id="questionCountdown"></span></b></h3>
             </div>
         </div>
 
-        <div class="row text-center py-3">
+        <div class="row text-center text-white py-5 font fontSize" id="gameInfo">
             <div class="col-md-12">
-                <button type="button" class="btn btn-danger btn-lg">Start Game Here If Ye Dare</button>
-                <p id="questions"></p>
+                <button type="button" class="btn btn-danger btn-lg font fontSize">Start Game Here If Ye Dare</button>
+                <p id="question"></p>
+                <p id="choices"></p>
+            </div>
+        </div>
+
+        <div class="row text-center text-white font fontSize py-3" id="answerArea">
+            <div class="col-md-12">
+                <p id="answerText"></p>
+                <p id="correctAnswer"></p>
+                <p id="imageGif"></p>
+            </div>
+        </div>
+
+        <div class="row text-center text-white font fontSize py-3" id="finalResults">
+            <div class="col-md-12">
+                <p id="resultText"></p>
+                <p id="amountCorrect"></p>
+                <p id="amountWrong"></p>
+                <p id="amountUnanswered"></p>
                 <p id="startOverButton"></p>
             </div>
         </div>
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </body>
 </html>
