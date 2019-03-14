@@ -1,7 +1,7 @@
 $(document).ready(function() {
   var intervalId; //time
   var countDownNumber = 20; //timer seconds
-  var currentQuestion = 0; //added values here instead of newGame
+  var currentQuestion = 0; //added values here instead of newGame currentQ
   var correctAnswer = 0;
   var wrongAnswer = 0;
   var unanswered = 0;
@@ -21,7 +21,7 @@ $(document).ready(function() {
       question: "The rules that pirates lived by while on ship were known as?",
       choices: ["Guidelines", "Articles", "Laws"],
       correct: 1,
-      image: "../images/articlesgif.gif"
+      image: "assets/images/articlesgif.gif"
     },
 
     {
@@ -29,7 +29,7 @@ $(document).ready(function() {
         "Only two women were ever convicted of piracy. One was Anne Bonney, but who was the other?",
       choices: ["Red Handed Jill", "Mary Read", "Blackbeard's Bride"],
       correct: 1,
-      image: "../images/maryReed.jpg"
+      image: "assets/images/maryReed.jpg"
     },
 
     {
@@ -37,14 +37,14 @@ $(document).ready(function() {
         "What is the name of the flag generally associated with pirates?",
       choices: ["The Jolly Roger", "Skull and Crossbones", "Hanging Man"],
       correct: 0,
-      image: "../images/jollyRoger.gif"
+      image: "assets/images/jollyRoger.gif"
     },
 
     {
       question: "What was Blackbeard's real name?",
       choices: ["Johnathan Larky", "Jasper Hook", "Edward Teach"],
       correct: 2,
-      image: "../images/blackbeard.gif"
+      image: "assets/images/blackbeard.gif"
     },
 
     {
@@ -52,7 +52,7 @@ $(document).ready(function() {
         "The English word pirate is derived from which of the following Latin terms?",
       choices: ["piratos", "pyrit", "pirata"],
       correct: 2,
-      image: "../images/latin.gif"
+      image: "assets/images/latin.gif"
     },
 
     {
@@ -60,7 +60,7 @@ $(document).ready(function() {
         "If you were entitled to a double share of the loot and booty ye would be the ____?",
       choices: ["First Mate", "Captain", "Surgeon"],
       correct: 1,
-      image: "../images/captain.gif"
+      image: "assets/images/captain.gif"
     }
   ];
 
@@ -86,12 +86,12 @@ $(document).ready(function() {
     //add what will show up when clock starts
     $("#timeRow").show();
     $("#gameInfo").show();
-    // $("#gameInfo").text("Hello");
-    //do i need to rehide answers and results area after click restart button?
+
     showQuestion();
   }
 
   function showQuestion() {
+    answered = true;
     //add cycle to show questions and answers
     $("#question").html(pirateQuestions[currentQuestion].question);
 
@@ -102,6 +102,8 @@ $(document).ready(function() {
       list.attr({ "data-index": i });
       list.addClass("thisChoice");
       $("#choices").append(list);
+
+      currentQuestion++;
     }
     //call startGame to start timer
     startGame();
@@ -109,7 +111,7 @@ $(document).ready(function() {
     //add userclick function
     $(".thisChoice").on("click", function() {
       userChoice = $(this).data("index");
-      console.log(userChoice);
+      //console.log(userChoice);
       clearInterval(intervalId);
       showAnswers();
     });
@@ -119,6 +121,7 @@ $(document).ready(function() {
   function startGame() {
     // $("#timeRow").show();
     clearInterval(intervalId);
+    answered = true;
     intervalId = setInterval(decrement, 1000);
   }
 
@@ -130,6 +133,7 @@ $(document).ready(function() {
 
     if (countDownNumber === 0) {
       clearInterval(intervalId);
+      answered = false;
       showAnswers();
     }
   }
@@ -141,18 +145,51 @@ $(document).ready(function() {
     $("#answerArea").show();
     $(".thisChoice").empty();
 
-    var rightAnswerText =
-      pirateQuestions[currentQuestion].choices[
-        pirateQuestions[currentQuestion].correct
-      ];
+    var rightAnswerText = pirateQuestions[currentQuestion].choices[pirateQuestions[currentQuestion].correct];
     var rightAnswerIndex = pirateQuestions[currentQuestion].correct;
-    console.log(rightAnswerText);
-    console.log(rightAnswerIndex);
+    //console.log(rightAnswerText);
+    //console.log(rightAnswerIndex);
 
     var gifImgLink = pirateQuestions[currentQuestion].image;
     var gifImg = $("<img>");
     gifImg.attr("Src", gifImgLink);
     gifImg.addClass("gif");
     $("#imageGif").html(gifImg);
+
+    if ((userChoice === rightAnswerIndex) && (answered === true)){
+      correctAnswer++;
+     // console.log(correctAnswer);
+      $("#answerText").html(text.correct);
+      $("#correctAnswer").hide();
+    } else if ((userChoice !== rightAnswerIndex) && (answered === true)){
+      wrongAnswer++;
+      $("#answerText").html(text.incorrect);
+      $("#correctAnswer").show().html("The correct answer was: " + rightAnswerText);
+    } else {
+      unanswered++;
+      $("#answerText").html(text.timeOut);
+      $("#correctAnswer").html("The correct answer was: " + rightAnswerText);
+      answered = true;
+    }
+
+    if (currentQuestion === (pirateQuestions.length-1)) {
+      setTimeout(results, 10000);
+    } else {
+      //currentQuestion++;
+      //console.log(currentQuestion);
+      setTimeout(showQuestion, 10000);
+    }
+  }
+
+  function results(){
+    $("#answerArea").hide();
+    $("#timeRow").hide();
+    $("#gameInfo").hide();
+    $("#answerText").html(text.done);
+    $("#amountCorrect").html("Correct Answers: " + correctAnswer);
+    $("#amountWrong").html("Incorrect Answers: " + wrongAnswer);
+    $("#amountUnanswered").html("Didn't Answer: " + timeOut);
+    $("#startOverButton").show();
+    $("#startOverButton").html("Restart Game here if ye Dare!");
   }
 });
