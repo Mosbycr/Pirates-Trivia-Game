@@ -7,17 +7,17 @@ body {
     background-position: center center;
     background-color: rgb(223, 211, 178);
     background-blend-mode: color-burn;
+   
 }
 
 .container {
     background: url("../images/shipDeck.jpg");
     background-size: cover;
-    background-position: center center;
+    background-position: center center; /* center center height no expland */
     background-repeat: no-repeat;
     background-color: rgb(231, 212, 187);
     background-blend-mode: multiply;
-    height: 100%;
-    display: block;
+    padding-bottom: 30%;
 }
 
 .textBackground {

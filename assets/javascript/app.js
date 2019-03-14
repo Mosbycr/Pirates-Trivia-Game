@@ -1,6 +1,19 @@
 $(document).ready(function() {
-  var intervalId;
-  var countDownNumber = 20;
+  var intervalId; //time
+  var countDownNumber = 20; //timer seconds
+  var currentQuestion = 0; //added values here instead of newGame
+  var correctAnswer = 0;
+  var wrongAnswer = 0;
+  var unanswered = 0;
+  var answered; //Used?
+  var userChoice;
+
+  var text = {
+    correct: "Arg! Yore the Captain of this Ship!",
+    incorrect: "Gar! Walk the Plank!",
+    timeOut: "Ye better be faster or i'll plunder yer booty!",
+    done: "Well done me Matey, the we're docked now",
+  };
 
   //object containing questions, answers, and images/gifs for answers
   var pirateQuestions = [
@@ -60,30 +73,69 @@ $(document).ready(function() {
   //hides start button after clicked and begins game
   $("#startButton").on("click", function(){
     $("#startButton").hide();
-    startGame();
+    newGame();
   });
+
+  //reset button
+  $("#startOverButton").on("click", function(){
+    $("#finalResults").hide();
+    newGame();
+  })
+
+  function newGame(){
+    //add what will show up when clock starts
+    $("#timeRow").show();
+    $("#gameInfo").show();
+   // $("#gameInfo").text("Hello");
+    //$("#answerArea").hide(); //do i need to repeat?
+    // $("#finalResults").hide(); //do i need to repeat?
+     showQuestion();
+  }
+
+  function showQuestion(){
+    //add cycle to show questions and answers
+    //$("#answerArea").hide(); //do i need to repeat?
+    //$("#questions").show(); //do i need since in my gameInfo area?
+
+    $("#question").html(pirateQuestions[currentQuestion].question);
+
+    // loop through choices and append each option
+    for (var i = 0; i <= 3; i++){
+      var list = $("<div>");
+      list.text(pirateQuestions[currentQuestion].choices[i]);
+      list.attr({"data-index": i});
+      list.addClass("thisChoice");
+      $("#choices").append(list);
+    }
+    //call startGame to start timer
+    startGame();
+  }
+
+  //add userclick function
+
 
   //shows time countdown and sets interval
   function startGame(){
-    $("#timeRow").show();
+    // $("#timeRow").show();
     clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
   }
 
   // decrements count down number every second until hits 0 and updates DOM with clock number
   function decrement(){
-    if (countDownNumber === 0){
-      alert("times up");    // will need to change to cycle questions
-      stopGame(); //placeholder for stop function
-    }
-
     countDownNumber --;
 
     $("#questionCountdown").text(countDownNumber + " seconds");
+
+    if (countDownNumber === 0) {
+      alert("times up");    // will need to change to cycle questions
+      stopGame(); //placeholder for stop function needs to call show anser function
+    }
   }
 
   //clears the interval and stops the game
   function stopGame(){
     clearInterval(intervalId);
+    //showAnswers();
   }
 });
