@@ -1,10 +1,11 @@
 $(document).ready(function() {
   var intervalId; //time
-  var countDownNumber = 20; //timer seconds
-  var currentQuestion = 0; //added values here instead of newGame currentQ
-  var correctAnswer = 0;
-  var wrongAnswer = 0;
-  var unanswered = 0;
+  var countDownNumber; //timer seconds
+
+  var currentQuestion; //added values here instead of newGame currentQ
+  var correctAnswer;
+  var wrongAnswer;
+  var unanswered;
   var answered; //Used?
   var userChoice;
 
@@ -12,7 +13,7 @@ $(document).ready(function() {
     correct: "Arg! Yore the Captain of this Ship!",
     incorrect: "Gar! Walk the Plank!",
     timeOut: "Ye better be faster or i'll plunder yer booty!",
-    done: "Well done me Matey, the we're docked now"
+    done: "Well done me Matey, the we're docked now",
   };
 
   //object containing questions, answers, and images/gifs for answers
@@ -21,7 +22,7 @@ $(document).ready(function() {
       question: "The rules that pirates lived by while on ship were known as?",
       choices: ["Guidelines", "Articles", "Laws"],
       correct: 1,
-      image: "assets/images/articlesgif.gif"
+      image: "assets/images/articlesgif.gif",
     },
 
     {
@@ -29,7 +30,7 @@ $(document).ready(function() {
         "Only two women were ever convicted of piracy. One was Anne Bonney, but who was the other?",
       choices: ["Red Handed Jill", "Mary Read", "Blackbeard's Bride"],
       correct: 1,
-      image: "assets/images/maryReed.jpg"
+      image: "assets/images/maryReed.jpg",
     },
 
     {
@@ -37,14 +38,14 @@ $(document).ready(function() {
         "What is the name of the flag generally associated with pirates?",
       choices: ["The Jolly Roger", "Skull and Crossbones", "Hanging Man"],
       correct: 0,
-      image: "assets/images/jollyRoger.gif"
+      image: "assets/images/jollyRoger.gif",
     },
 
     {
       question: "What was Blackbeard's real name?",
       choices: ["Johnathan Larky", "Jasper Hook", "Edward Teach"],
       correct: 2,
-      image: "assets/images/blackbeard.gif"
+      image: "assets/images/blackbeard.gif",
     },
 
     {
@@ -52,7 +53,7 @@ $(document).ready(function() {
         "The English word pirate is derived from which of the following Latin terms?",
       choices: ["piratos", "pyrit", "pirata"],
       correct: 2,
-      image: "assets/images/latin.gif"
+      image: "assets/images/latin.gif",
     },
 
     {
@@ -60,13 +61,14 @@ $(document).ready(function() {
         "If you were entitled to a double share of the loot and booty ye would be the ____?",
       choices: ["First Mate", "Captain", "Surgeon"],
       correct: 1,
-      image: "assets/images/captain.gif"
+      image: "assets/images/captain.gif",
     }
   ];
 
   // Hides time countdown and extra areas on startup
   $("#timeRow").hide();
   $("#gameInfo").hide();
+  //$("#startOverButton").hide();
   $("#answerArea").hide();
   $("#finalResults").hide();
 
@@ -86,11 +88,22 @@ $(document).ready(function() {
     //add what will show up when clock starts
     $("#timeRow").show();
     $("#gameInfo").show();
+    $("#answerArea").hide();
+    $("#finalResults").hide();
+
+    correctAnswer = 0;
+    wrongAnswer = 0;
+    timeOut = 0;
+    unanswered = 0;
+    currentQuestion = 0;
 
     showQuestion();
   }
 
   function showQuestion() {
+    $("#answerArea").hide();
+    $("#timeRow").show();
+    $("#gameInfo").show();
     answered = true;
     //add cycle to show questions and answers
     $("#question").html(pirateQuestions[currentQuestion].question);
@@ -103,7 +116,6 @@ $(document).ready(function() {
       list.addClass("thisChoice");
       $("#choices").append(list);
 
-      currentQuestion++;
     }
     //call startGame to start timer
     startGame();
@@ -119,8 +131,10 @@ $(document).ready(function() {
 
   //shows time countdown and sets interval
   function startGame() {
+    countDownNumber = 20;
     // $("#timeRow").show();
-    clearInterval(intervalId);
+    //clearInterval(intervalId);
+    
     answered = true;
     intervalId = setInterval(decrement, 1000);
   }
@@ -142,6 +156,7 @@ $(document).ready(function() {
   function showAnswers() {
     $("#timeRow").hide();
     $("#gameInfo").hide();
+    $("#finalResults").hide();
     $("#answerArea").show();
     $(".thisChoice").empty();
 
@@ -173,11 +188,11 @@ $(document).ready(function() {
     }
 
     if (currentQuestion === (pirateQuestions.length-1)) {
-      setTimeout(results, 10000);
+      setTimeout(results, 5000);
     } else {
-      //currentQuestion++;
+      currentQuestion++;
       //console.log(currentQuestion);
-      setTimeout(showQuestion, 10000);
+      setTimeout(showQuestion, 5000);
     }
   }
 
@@ -185,11 +200,12 @@ $(document).ready(function() {
     $("#answerArea").hide();
     $("#timeRow").hide();
     $("#gameInfo").hide();
-    $("#answerText").html(text.done);
+    $("#finalResults").show();
+    $("#resultText").html(text.done);
     $("#amountCorrect").html("Correct Answers: " + correctAnswer);
     $("#amountWrong").html("Incorrect Answers: " + wrongAnswer);
     $("#amountUnanswered").html("Didn't Answer: " + timeOut);
     $("#startOverButton").show();
-    $("#startOverButton").html("Restart Game here if ye Dare!");
+    $("#startOverButton").html("Restart Game Here If Ye Dare!");
   }
 });
