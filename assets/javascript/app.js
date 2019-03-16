@@ -95,6 +95,7 @@ $(document).ready(function() {
   function showQuestion() {
     $("#answerArea").hide();
     $("#timeRow").show();
+    $("#questionCountdown").text("20 Seconds");
     $("#gameInfo").show();
     answered = true;
    
@@ -120,6 +121,7 @@ $(document).ready(function() {
   function startGame() {
     countDownNumber = 20;
     answered = true;
+    clearInterval(intervalId);
     intervalId = setInterval(decrement, 1000);
   }
 
