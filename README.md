@@ -13,3 +13,4 @@ Allows the user to start a multiple choice question game about pirates. Users ha
 * Here they can click on the restart button to begin the game again.
 
 # Demo
+![2019-03-15 (2)](https://user-images.githubusercontent.com/46547100/54469425-2c7ee880-476e-11e9-9c3a-f5f37f9f1fc2.png)
